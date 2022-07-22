@@ -1,9 +1,8 @@
 //
 //  ViewController.swift
-//  Dicee-iOS13
+//  Dice exercise from AppBrewery bootcamp
 //
-//  Created by Angela Yu on 11/06/2019.
-//  Copyright © 2019 London App Brewery. All rights reserved.
+//  Created by Martin Cordoba on july 2022
 //
 
 import UIKit
@@ -27,7 +26,7 @@ class ViewController: UIViewController {
 //    In this case we don't really need vewDidLoad() function, so I just comment it.
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
-//        Next commented lines are just part of the exercise.
+//        Next commented lines are just part of the exercise. They're not needed anymore for the final result
 //        diceOne.image = UIImage(named: "DiceOne")
 //        diceTwo.image = UIImage(named: "DiceTwo")
 //        diceThree.image = UIImage(named: "DiceThree")
@@ -35,7 +34,7 @@ class ViewController: UIViewController {
 //    }
 
     @IBAction func rollingButtonAction(_ sender: UIButton) {
-        //Next commented lines are just part of the exercise.
+        //Next commented lines are just part of the exercise. They're not needed anymore for the final result
 //        print("Button has been pressed")
 //        diceOne.image = .init(named: "DiceFour")
 //        diceTwo.image = .init(named: "DiceFive")
