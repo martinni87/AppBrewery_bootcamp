@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -18,14 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppBreweryBackground" translatesAutoresizingMaskIntoConstraints="NO" id="hDV-2r-SpX">
-                                <rect key="frame" x="-30" y="0.0" width="474" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="AppBreweryLogo" translatesAutoresizingMaskIntoConstraints="NO" id="L73-FM-GDd">
-                                <rect key="frame" x="112" y="393" width="190" height="59"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppBreweryLogo" translatesAutoresizingMaskIntoConstraints="NO" id="L73-FM-GDd">
+                                <rect key="frame" x="112" y="368.5" width="190" height="59"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="And Martin at the code!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeN-IS-Cvg">
-                                <rect key="frame" x="95" y="475" width="224" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="And Martin at the code!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeN-IS-Cvg">
+                                <rect key="frame" x="102" y="477.5" width="210" height="28"/>
                                 <color key="tintColor" red="1" green="0.77647058820000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,12 +36,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="L73-FM-GDd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1db-x5-iqz"/>
-                            <constraint firstItem="hDV-2r-SpX" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="QG6-2s-aIE"/>
-                            <constraint firstItem="hDV-2r-SpX" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" constant="30" id="Qkd-TS-52T"/>
-                            <constraint firstItem="hDV-2r-SpX" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-30" id="goO-U5-6AD"/>
-                            <constraint firstItem="L73-FM-GDd" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="m4c-X5-94d"/>
-                            <constraint firstAttribute="bottom" secondItem="hDV-2r-SpX" secondAttribute="bottom" id="pLe-ns-Vsl"/>
+                            <constraint firstItem="SeN-IS-Cvg" firstAttribute="top" secondItem="L73-FM-GDd" secondAttribute="bottom" constant="50" id="5co-ou-GzB"/>
+                            <constraint firstItem="L73-FM-GDd" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-50" id="IS5-z3-3Je"/>
+                            <constraint firstItem="hDV-2r-SpX" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="JSR-B9-krc"/>
+                            <constraint firstItem="hDV-2r-SpX" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Un6-vR-XHd"/>
+                            <constraint firstAttribute="bottom" secondItem="hDV-2r-SpX" secondAttribute="bottom" id="qWc-ev-Ylr"/>
+                            <constraint firstItem="SeN-IS-Cvg" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rz2-60-ZRe"/>
+                            <constraint firstItem="L73-FM-GDd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vyT-WB-Q9v"/>
+                            <constraint firstItem="hDV-2r-SpX" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="xVB-c4-mBh"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -52,7 +53,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppBreweryBackground" width="596" height="842"/>
+        <image name="AppBreweryBackground" width="558" height="837"/>
         <image name="AppBreweryLogo" width="190" height="59"/>
         <systemColor name="placeholderTextColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>

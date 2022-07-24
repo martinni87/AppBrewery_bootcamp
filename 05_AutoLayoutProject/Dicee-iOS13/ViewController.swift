@@ -3,7 +3,9 @@
 //  Dice exercise from AppBrewery bootcamp
 //
 //  Created by Martin Cordoba on july 2022
+//  Version 1.0 Only works on iPhone 11
 //
+//  Version 2.0 New modifications to work on more displays ratios
 
 import UIKit
 
@@ -12,6 +14,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var diceOne: UIImageView!
     @IBOutlet weak var diceTwo: UIImageView!
     @IBOutlet weak var diceThree: UIImageView!
+    @IBOutlet weak var diceFour: UIImageView!
+    @IBOutlet weak var diceFive: UIImageView!
+    @IBOutlet weak var diceSix: UIImageView!
+    @IBOutlet weak var playerPoints: UILabel!
     @IBOutlet weak var rollingButton: UIButton!
     
     let diceValuesArray = [
@@ -22,34 +28,46 @@ class ViewController: UIViewController {
         UIImage(named: "DiceFive"),
         UIImage(named: "DiceSix")
     ]
-
-//    In this case we don't really need vewDidLoad() function, so I just comment it.
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        Next commented lines are just part of the exercise. They're not needed anymore for the final result
-//        diceOne.image = UIImage(named: "DiceOne")
-//        diceTwo.image = UIImage(named: "DiceTwo")
-//        diceThree.image = UIImage(named: "DiceThree")
-//        rollingButton.alpha = CGFloat(0.5)
-//    }
+    
+    var arrayOfDices: Array<UIImageView> = []
+    
+    
+    var points = 0
+    let pointsTextStandard = "Points: "
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        playerPoints.text = pointsTextStandard + String(points)
+        arrayOfDices = [
+            diceOne,
+            diceTwo,
+            diceThree,
+            diceFour,
+            diceFive,
+            diceSix
+        ]
+    }
 
     @IBAction func rollingButtonAction(_ sender: UIButton) {
-        //Next commented lines are just part of the exercise. They're not needed anymore for the final result
-//        print("Button has been pressed")
-//        diceOne.image = .init(named: "DiceFour")
-//        diceTwo.image = .init(named: "DiceFive")
-//        diceThree.image = .init(named: "DiceSix")
-//        rollingButton.alpha = CGFloat(1)
-        diceOne.image = diceValuesArray[Int.random(in: 0...5)]
-        //Other way is with .randomElement() which looks how many items we have in an array and
-        //randomly choose one. This is way more efficient.
-        //If we don't set .randomElement()! we get an error: Cannot assign value of type UIImage?? to type
-        //UIImage?
-        //With ! we confirm that this value is not going to be null.
-        diceTwo.image = diceValuesArray.randomElement()!
-        diceThree.image = diceValuesArray.randomElement()!
+        var randomNumber = 0
+        
+        //This loop takes each dice of the array and changes their values with the randomNumber generated.
+        //Then it saves the randomValue to keep record of the points
+        for i in 0 ... 5{
+            randomNumber = Int.random(in: 1 ... 5)
+            points += randomNumber + 1
+            arrayOfDices[i].image = diceValuesArray[randomNumber]
+        }
+        
+        //After each throw, the pointers are updated
+        playerPoints.text = pointsTextStandard + String(points)
+
+//        diceOne.image = diceValuesArray.randomElement()!
+//        diceTwo.image = diceValuesArray.randomElement()!
+//        diceThree.image = diceValuesArray.randomElement()!
+//        diceFour.image = diceValuesArray.randomElement()!
+//        diceFive.image = diceValuesArray.randomElement()!
+//        diceSix.image = diceValuesArray.randomElement()!
     }
-    
-    
 }
 
