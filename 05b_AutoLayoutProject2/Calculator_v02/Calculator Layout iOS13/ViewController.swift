@@ -5,9 +5,8 @@
 //  Created by Angela Yu on 01/07/2019.
 //  Copyright © 2019 The App Brewery. All rights reserved.
 //
+//  VERSION 2.0 In this version I try to solve some issues found in the v1.0 in which app didn't get to work properly
 
-
-// There are some errors. TODO: Try to solve problems found in execution, calculator not working correctly. Numbers not shown correctly.
 
 import UIKit
 
