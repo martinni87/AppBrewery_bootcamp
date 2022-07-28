@@ -12,51 +12,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    // - MARK: My constants
-    
-    private let kdecimalSeparator = Locale.current.decimalSeparator!    //Decimal separator symbol by current localtion.
-    private let kMaxLength = 9                                          //Max length of a number.
-    private let kMaxValue = 999999999
-    private let kMinValue = 0.00000001
-        
-    private enum operationType{
-        case none, addition, subtraction, multiplication, division, percentage
-    }
-    
-    // - MARK: My variables
-    
-    private var numpadArrayTags: Array<UIButton> = []       //To assign tags with for loop in viewDidLoad()
-    private var temp: Double = 0                            //Shows on display value
-    private var total: Double = 0                           //Total of operations
-    private var isOperating: Bool = false                   //Turns true when user press an operation button
-    private var isDecimal: Bool = false                     //Turns true when user press decimal separator button
-    private var operation: operationType = .none     //By default there's no operation, it changes when the user selects an operation to perform. See enum options above.
-    
-    // - MARK: Formatters
-    
-    //Aux value formatter
-    private let auxFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        let locale = Locale.current
-        formatter.groupingSeparator = ""
-        formatter.decimalSeparator = locale.decimalSeparator
-        formatter.numberStyle = .decimal
-        return formatter
-    }()
-    
-    //Default display value formatter
-    private var printFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        let locale = Locale.current
-        formatter.groupingSeparator = locale.groupingSeparator
-        formatter.decimalSeparator = locale.decimalSeparator
-        formatter.numberStyle = .decimal
-        formatter.maximumIntegerDigits = 9
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 8
-        return formatter
-    }()
-    
     // - MARK: @IBOutlets Numpad
     
     @IBOutlet weak var number0: UIButton!
@@ -72,20 +27,30 @@ class ViewController: UIViewController {
     
     // - MARK: @IBOutlets Operators
     
-    @IBOutlet weak var buttonEqual: UIButton!
-    @IBOutlet weak var buttonAddition: UIButton!
-    @IBOutlet weak var buttonSubtraction: UIButton!
-    @IBOutlet weak var buttonMultiplication: UIButton!
-    @IBOutlet weak var buttonDivision: UIButton!
-    @IBOutlet weak var buttonPercentage: UIButton!
+    @IBOutlet weak var equalButton: UIButton!
+    @IBOutlet weak var additionButton: UIButton!
+    @IBOutlet weak var subtractionButton: UIButton!
+    @IBOutlet weak var multiplicationButton: UIButton!
+    @IBOutlet weak var divisionButton: UIButton!
+    @IBOutlet weak var percentageButton: UIButton!
     
     // - MARK: @IBOutlets Modifiers
-    @IBOutlet weak var numberDecimal: UIButton!
-    @IBOutlet weak var buttonPlusMinus: UIButton!
-    @IBOutlet weak var buttonAllClear: UIButton!
+    @IBOutlet weak var decimalButton: UIButton!
+    @IBOutlet weak var plusMinusModifier: UIButton!
+    @IBOutlet weak var allClearButton: UIButton!
     
     // - MARK: @IBOutlets Display
-    @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var uiDisplay: UILabel!
+    
+    // - MARK: My constants
+    private var numpadArrayTags: Array<UIButton> = []
+    private enum operators{case none,add,sub,mul,div}
+    
+    // - MARK: My variables
+    private var total: Double = 0
+    private var tempNumber: Double = 0
+    private var selectedOP: operators = .none
+    private var startNewNumber: Bool = true
     
     // - MARK: VIEWDIDLOAD
     override func viewDidLoad() {
@@ -93,103 +58,59 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         //Setting numpad tags
+        var i: Int = 0
         numpadArrayTags = [number0, number1, number2, number3, number4, number5, number6, number7, number8, number9]
-        for i in 0 ... 9{
-            numpadArrayTags[i].tag = i
+        for button in numpadArrayTags{
+            button.tag = i
+            i += 1
         }
         
         //Screen value in text
-        display.text = "0"
-        
-        //Update number decimal symbol by de current locale
-        numberDecimal.setTitle(kdecimalSeparator, for: .normal)
-        
-        result()
-        
+        uiDisplay.text = "0"
     }
 
     // - MARK: @IBActions NumPad
     @IBAction func numPadAction(_ sender: UIButton) {
-        //When number starts to be written, AC turns C to clear current display but not everything
-        buttonAllClear.setTitle("C", for: .normal)
-        
-        //Saving display value in currentTemp
-        var currentTemp = auxFormatter.string(from: NSNumber(value: temp))!
-        
-        if !isOperating && currentTemp.count >= kMaxLength{
-            return //Do nothing
+        if allClearButton.titleLabel!.text == "AC"{
+            allClearButton.setTitle("C", for: .normal)
         }
         
-        if isOperating{
-            total = (total == 0 ? temp : total)
-            display.text = ""
-            currentTemp = ""
-            isOperating = false
+        if startNewNumber{
+            uiDisplay.text! = String(sender.tag)
+            startNewNumber = false
+        }
+        else{
+            uiDisplay.text! += String(sender.tag)
         }
         
-        if isDecimal{
-            currentTemp += kdecimalSeparator
-            isDecimal = false
-        }
-        
-        let number = sender.tag
-        
-        temp = Double(currentTemp + String(number))!
-        
-        display.text = String(temp)
-        
-        print(sender.tag)
-//        print(sender.tag) //This is to debug the button pressed
-//        if Double(screenValue.text ?? "0") == 0{
-//            //Do nothing...
-////            currentNumber = Double(sender.tag)
-//        }
-//        if display.text?.first != "0"{
-//            display.text! += String(sender.tag)
-//            print(sender.tag)
-////            currentNumber = (Double(screenValue.text!) ?? 0) * 10 + Double(sender.tag)
-//        }
-//        temp = Double(display.text!) ?? 0
-////        screenValue.text = String(currentNumber)
-//        print(temp)
-        
+        tempNumber = Double(uiDisplay.text!)!
     }
     
     // - MARK: @IBActions Operators
     @IBAction func additionAction(_ sender: UIButton) {
-        if isOperating{
-            result()
-        }
-        isOperating = true
-        operation = .addition
-        result()
+        operationState()
+        selectedOP = .add
     }
+    
     @IBAction func subtractionAction(_ sender: UIButton) {
-        if isOperating{
-            result()
-        }
-        isOperating = true
-        operation = .subtraction
-        result()
+        operationState()
+        selectedOP = .sub
     }
+    
     @IBAction func multiplicationAction(_ sender: UIButton) {
-        if isOperating{
-            result()
-        }
-        isOperating = true
-        operation = .multiplication
-        result()
+        operationState()
+        selectedOP = .mul
     }
+    
     @IBAction func divisionAction(_ sender: UIButton) {
-        if isOperating{
-            result()
-        }
-        isOperating = true
-        operation = .division
-        result()
+        operationState()
+        selectedOP = .div
     }
+    
     @IBAction func equalAction(_ sender: UIButton) {
-        result()
+        uiDisplay.text! = String(total)
+        uiDisplay.text!.removeLast()
+        startNewNumber = true
     }
     
     // - MARK: @IBActions Modifiers
@@ -197,90 +118,72 @@ class ViewController: UIViewController {
     @IBAction func allClearAction(_ sender: UIButton) {
         clear()
     }
+    
     @IBAction func togglePositiveNegative(_ sender: UIButton) {
-        temp = temp * (-1)
-        display.text = printFormatter.string(from: NSNumber(value: temp))
+        tempNumber *= (-1)
+        uiDisplay.text! = String(tempNumber)
     }
+    
     @IBAction func percentageAction(_ sender: UIButton) {
-        if isOperating {
-            result()
-        }
-        isOperating = true
-        operation = .percentage
-        result()
+
     }
+    
     @IBAction func decimalSeparatorAction(_ sender: UIButton) {
-        if !isDecimal{
-            //Saving temp value formatted into currentTemp (an auxiliar local constant)
-            let currentTemp = auxFormatter.string(from: NSNumber(value: temp))!
-            
-            if !isOperating && currentTemp.count >= kMaxLength {
-                return //Do nothing if is not an operation going on and we already are at maximum number length
-            }
-            else{
-                //Other case:
-                display.text = display.text! + kdecimalSeparator
-                isDecimal = true
-            }
-        }
+
     }
     
     // - MARK: Private functions
     
     //Function to clear display. On double click clears all values
     private func clear(){
-        operation = .none
-        buttonAllClear.setTitle("AC", for: .normal)
-        if temp != 0 {
-            temp = 0
-            display.text = "0"
-            isDecimal = false
-        }
-        else if temp == 0 && isDecimal {
-            display.text = "0"
-            isDecimal = false
+        if allClearButton.titleLabel!.text == "C"{
+            allClearButton.setTitle("AC", for: .normal)
+            tempNumber = 0
         }
         else{
             total = 0
-            result() //Because this uses operation = .none and total = 0, with this we reset all the calculations in func result()
+            selectedOP = .none
+            
         }
+        uiDisplay.text! = "0"
+        startNewNumber = true
+    }
+    
+    private func operationState(){
+        if selectedOP == .none{
+            total = tempNumber
+        }
+        else{
+            performPendingOperation()
+            uiDisplay.text! = String(total)
+        }
+        startNewNumber = true
     }
     
     //Function to get all results
-    private func result(){
-        switch operation {
+    private func performPendingOperation(){
+        switch selectedOP {
         case .none:
-            //Do nothing
             break
-        case .addition:
-            total += temp
+        case .add:
+            total += tempNumber
             break
-        case .subtraction:
-            total -= temp
+        case .sub:
+            total -= tempNumber
             break
-        case .multiplication:
-            total *= temp
+        case .mul:
+            total *= tempNumber
             break
-        case .division:
-            total /= temp
-            break
-        case .percentage:
-            temp = temp / 100
-            total = temp
+        case .div:
+            total /= tempNumber
             break
         }
-        
-        //Show values on display
-        if Int(total) <= kMaxValue && total >= kMinValue {
-            display.text = printFormatter.string(from: NSNumber(value: total))
-        }
-        print("Total: \(total)")
-        isOperating = false
-        isDecimal = false
-        operation = .none
     }
     
-    
-    
+    private func showResult(){
+        performPendingOperation()
+        uiDisplay.text! = String(total)
+        
+    }
 }
 

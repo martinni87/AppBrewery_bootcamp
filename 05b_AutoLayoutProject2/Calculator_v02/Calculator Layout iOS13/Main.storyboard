@@ -319,15 +319,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonAddition" destination="fBd-7N-tqa" id="Y6P-MX-V8u"/>
-                        <outlet property="buttonAllClear" destination="4Xg-es-CLv" id="k9a-TH-pOu"/>
-                        <outlet property="buttonDivision" destination="G64-9b-ycy" id="9cs-lW-qeI"/>
-                        <outlet property="buttonEqual" destination="FGk-T1-huW" id="d3X-gn-zNj"/>
-                        <outlet property="buttonMultiplication" destination="DbC-GJ-p5L" id="w6V-0t-49r"/>
-                        <outlet property="buttonPercentage" destination="ghE-zu-oK9" id="yds-gi-dmQ"/>
-                        <outlet property="buttonPlusMinus" destination="ros-cP-dSM" id="PsZ-li-EHt"/>
-                        <outlet property="buttonSubtraction" destination="wKr-Ro-rCd" id="VlH-ir-KhR"/>
-                        <outlet property="display" destination="gC2-i9-XzD" id="hIK-lR-Zth"/>
+                        <outlet property="additionButton" destination="fBd-7N-tqa" id="Y6P-MX-V8u"/>
+                        <outlet property="allClearButton" destination="4Xg-es-CLv" id="k9a-TH-pOu"/>
+                        <outlet property="decimalButton" destination="LpT-LD-dH2" id="Xb1-tz-JU4"/>
+                        <outlet property="divisionButton" destination="G64-9b-ycy" id="9cs-lW-qeI"/>
+                        <outlet property="equalButton" destination="FGk-T1-huW" id="d3X-gn-zNj"/>
+                        <outlet property="multiplicationButton" destination="DbC-GJ-p5L" id="w6V-0t-49r"/>
                         <outlet property="number0" destination="fU1-W1-Eu8" id="zHZ-Mz-Awd"/>
                         <outlet property="number1" destination="vDF-Od-2G3" id="kjv-gm-fNq"/>
                         <outlet property="number2" destination="52o-xb-7oN" id="gKC-uI-KNO"/>
@@ -338,7 +335,10 @@
                         <outlet property="number7" destination="0Te-1e-CoT" id="wOZ-n1-mzu"/>
                         <outlet property="number8" destination="a4f-FD-ABr" id="YO5-68-She"/>
                         <outlet property="number9" destination="O2M-Zh-IbB" id="Skw-I2-rLi"/>
-                        <outlet property="numberDecimal" destination="LpT-LD-dH2" id="Xb1-tz-JU4"/>
+                        <outlet property="percentageButton" destination="ghE-zu-oK9" id="yds-gi-dmQ"/>
+                        <outlet property="plusMinusModifier" destination="ros-cP-dSM" id="PsZ-li-EHt"/>
+                        <outlet property="subtractionButton" destination="wKr-Ro-rCd" id="VlH-ir-KhR"/>
+                        <outlet property="uiDisplay" destination="gC2-i9-XzD" id="hIK-lR-Zth"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b3E-z2-QY8" sceneMemberID="firstResponder"/>
