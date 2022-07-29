@@ -51,6 +51,7 @@ class ViewController: UIViewController {
     private var tempNumber: Double = 0
     private var selectedOP: operators = .none
     private var startNewNumber: Bool = true
+    private var isDecimal: Bool = false
     
     // - MARK: VIEWDIDLOAD
     override func viewDidLoad() {
@@ -65,6 +66,9 @@ class ViewController: UIViewController {
             i += 1
         }
         
+        //Value for decimal button to work along with numpad functions
+        decimalButton.tag = 10
+        
         //Screen value in text
         uiDisplay.text = "0"
     }
@@ -75,7 +79,17 @@ class ViewController: UIViewController {
             allClearButton.setTitle("C", for: .normal)
         }
         
-        if startNewNumber{
+        if startNewNumber && sender.tag == 10 && !isDecimal{
+            uiDisplay.text! = "0."
+            isDecimal = true
+            startNewNumber = false
+        }
+        else if sender.tag == 10 && !isDecimal{
+            uiDisplay.text! += "."
+            isDecimal = true
+            startNewNumber = false
+        }
+        else if startNewNumber{
             uiDisplay.text! = String(sender.tag)
             startNewNumber = false
         }
@@ -108,9 +122,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equalAction(_ sender: UIButton) {
-        uiDisplay.text! = String(total)
-        uiDisplay.text!.removeLast()
-        startNewNumber = true
+        showResult()
     }
     
     // - MARK: @IBActions Modifiers
@@ -125,11 +137,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func percentageAction(_ sender: UIButton) {
-
-    }
-    
-    @IBAction func decimalSeparatorAction(_ sender: UIButton) {
-
+        tempNumber = tempNumber / 100
+        uiDisplay.text! = String(tempNumber)
     }
     
     // - MARK: Private functions
@@ -158,12 +167,14 @@ class ViewController: UIViewController {
             uiDisplay.text! = String(total)
         }
         startNewNumber = true
+        isDecimal = false
     }
     
     //Function to get all results
     private func performPendingOperation(){
         switch selectedOP {
         case .none:
+            total = tempNumber
             break
         case .add:
             total += tempNumber
@@ -182,8 +193,11 @@ class ViewController: UIViewController {
     
     private func showResult(){
         performPendingOperation()
+        selectedOP = .none
         uiDisplay.text! = String(total)
-        
+        tempNumber = total
+        startNewNumber = true
+        isDecimal = false
     }
 }
 

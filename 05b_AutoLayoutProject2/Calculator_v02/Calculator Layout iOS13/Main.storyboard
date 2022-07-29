@@ -288,7 +288,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="decimalSeparatorAction:" destination="ey4-0b-agg" eventType="touchUpInside" id="Efu-Oo-9t8"/>
+                                                            <action selector="numPadAction:" destination="ey4-0b-agg" eventType="touchUpInside" id="b0c-vD-sgh"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGk-T1-huW">
