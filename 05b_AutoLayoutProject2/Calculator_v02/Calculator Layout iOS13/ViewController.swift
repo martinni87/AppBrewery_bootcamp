@@ -94,7 +94,9 @@ class ViewController: UIViewController {
             startNewNumber = false
         }
         else{
-            uiDisplay.text! += String(sender.tag)
+            if sender.tag != 10{
+                uiDisplay.text! += String(sender.tag)
+            }
         }
         
         tempNumber = Double(uiDisplay.text!)!
@@ -156,6 +158,7 @@ class ViewController: UIViewController {
         }
         uiDisplay.text! = "0"
         startNewNumber = true
+        isDecimal = false
     }
     
     private func operationState(){
