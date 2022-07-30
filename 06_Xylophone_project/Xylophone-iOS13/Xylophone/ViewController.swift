@@ -10,15 +10,6 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var cKeyButton: UIButton!
-    @IBOutlet weak var dKeyButton: UIButton!
-    @IBOutlet weak var eKeyButton: UIButton!
-    @IBOutlet weak var fKeyButton: UIButton!
-    @IBOutlet weak var gKeyButton: UIButton!
-    @IBOutlet weak var aKeyButton: UIButton!
-    @IBOutlet weak var bKeyButton: UIButton!
-    
     
     var player: AVAudioPlayer!
     
@@ -42,6 +33,7 @@ class ViewController: UIViewController {
 //        }
         
         playSound(sender.currentTitle!)
+        dimButton(sender)
     }
     
     private func playSound(_ note: String){
@@ -50,11 +42,27 @@ class ViewController: UIViewController {
         player.play()
     }
     
-    private func dimButton(_ key: String){
-        aKeyButton
+    private func dimButton(_ key: UIButton){
+        print("START")
+        key.alpha = 0.5
+        
+        let seconds = 0.15
+        let dispatchTime: DispatchTime = DispatchTime.now() + seconds
+        
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
+            self.undimButton(key)
+        }
+        
     }
     
+    private func undimButton(_ key: UIButton){
+        print("END")
+        key.alpha = 1.0
+    }
+        
     
-
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//            sender.alpha = 1.0
+//        }
 }
 
