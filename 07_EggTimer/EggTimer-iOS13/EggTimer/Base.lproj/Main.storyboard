@@ -127,7 +127,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YBL-f7-UR4">
                                         <rect key="frame" x="0.0" y="490" width="374" height="206"/>
                                         <subviews>
-                                            <progressView opaque="NO" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="750" progress="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="2aa-MY-yZp">
+                                            <progressView opaque="NO" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="2aa-MY-yZp">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="4"/>
                                                 <color key="tintColor" systemColor="systemGreenColor"/>
                                             </progressView>
@@ -172,7 +172,7 @@
                         <outlet property="progressBar" destination="2aa-MY-yZp" id="6BM-jm-o3s"/>
                         <outlet property="softEggButton" destination="kNr-Dp-1Dg" id="zUH-c5-8kS"/>
                         <outlet property="stopButton" destination="IW9-RA-4my" id="Y2u-Pn-g2M"/>
-                        <outlet property="timerView" destination="Aoo-UJ-v8O" id="A75-9H-Hf8"/>
+                        <outlet property="timerLabel" destination="Aoo-UJ-v8O" id="A75-9H-Hf8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
