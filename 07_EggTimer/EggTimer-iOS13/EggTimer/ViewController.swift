@@ -13,15 +13,13 @@ import MobileCoreServices
 class ViewController: UIViewController {
     
     // - MARK: My Constants
-    private let ksoftEgg = 5 * 60 //This value must be in seconds, so 5 minutes = 5 * 60
-    private let kmediumEgg = 7 * 60 //This value must be in seconds, so 7 minutes = 7 * 60
-    private let khardEgg = 12 * 60 //This value must be in seconds, so 12 minutes = 12 * 60
+    private let eggTimes: [String:Float] = ["Soft": 10, "Medium": 15, "Hard": 30]
     
     // - MARK: My Variables
     private var soundPlayer: AVAudioPlayer!
     private var minutesLabel: Int = 0
     private var timer: Timer = Timer()
-    private var counter: Int = 0
+    private var counter: Float = 0
     private var timerIsRunning: Bool = false
     private var limitTime: Int = 0
     
@@ -32,6 +30,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var headerLabel: UILabel!
     
     
     // - MARK: View did load
@@ -44,6 +43,7 @@ class ViewController: UIViewController {
         progressBar.isHidden = true
         timerLabel.isHidden = true
         stopButton.isHidden = true
+        headerLabel.text = "How do you like your eggs?"
     }
 
     // - MARK: Interface Builder Actions
@@ -58,14 +58,16 @@ class ViewController: UIViewController {
         timerLabel.isHidden = false
         stopButton.isHidden = false
 
-        setLimitTime(sender.currentTitle!)
+//        setLimitTime(sender.currentTitle!)
+        
+        headerLabel.text = sender.currentTitle! + " egg is cooking!"
         
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
     }
     
     @IBAction func stopButtonAction(_ sender: UIButton) {
         let alert = UIAlertController(title: "STOP", message: "If you STOP NOW, everything will be lost. Proceed?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "YES", style: .cancel, handler: {(_) in
+        alert.addAction(UIAlertAction(title: "YES", style: .cancel, handler: { [self](_) in
             self.counter = 0
             self.timer.invalidate()
             self.timerLabel.text = self.timerString(0,0,0)
@@ -83,6 +85,8 @@ class ViewController: UIViewController {
             self.progressBar.isHidden = true
             self.timerLabel.isHidden = true
             self.stopButton.isHidden = true
+            
+            self.headerLabel.text = "How do you like your eggs?"
         }))
         
         alert.addAction(UIAlertAction(title: "NO", style: .default, handler: nil))
@@ -99,33 +103,35 @@ class ViewController: UIViewController {
         soundPlayer.play()
     }
     
-    func setLimitTime(_ buttonTitle: String){
-        switch buttonTitle.uppercased() {
-        case "SOFT": limitTime = ksoftEgg
-            break
-        case "MEDIUM": limitTime = kmediumEgg
-            break
-        case "HARD": limitTime = khardEgg
-            break
-        default:break
-        }
-    }
+//    func setLimitTime(_ buttonTitle: String){
+//        limitTime = eggTimes[buttonTitle]!
+//        headerLabel.text = buttonTitle
+//    }
     
     @objc func timerCounter() -> Void {
         counter += 1
         self.updateProgressBar()
-        let time = secondsMinutesHours(counter)
+        let time = secondsMinutesHours(Int(counter))
         let timeString = timerString(time.0, time.1, time.2)
         self.timerLabel.text = timeString
-        if counter == limitTime {
+        if counter == eggTimes["Soft"]{
             runAlarm()
+            headerLabel.text = "Soft egg done!"
+        }
+        else if counter == eggTimes["Medium"]{
+            runAlarm()
+            headerLabel.text = "Medium egg done!"
+        }
+        else if counter == eggTimes["Hard"]{
+            runAlarm()
+            headerLabel.text = "Hard egg done!"
             timer.invalidate()
         }
-        
-        
     }
+        
     private func updateProgressBar(){
-        let progress: Float = 1 / Float(limitTime)
+        let progress: Float = 1 / eggTimes["Hard"]!
+        
         self.progressBar.progress += progress
     }
     

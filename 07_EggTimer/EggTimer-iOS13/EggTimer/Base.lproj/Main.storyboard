@@ -168,6 +168,7 @@
                     </view>
                     <connections>
                         <outlet property="hardEggButton" destination="NEu-V5-iHi" id="OHZ-Yn-prZ"/>
+                        <outlet property="headerLabel" destination="XLm-5r-pSP" id="CU9-Ex-UGR"/>
                         <outlet property="mediumEggButton" destination="Q3H-nl-7AG" id="h4f-Y3-wOB"/>
                         <outlet property="progressBar" destination="2aa-MY-yZp" id="6BM-jm-o3s"/>
                         <outlet property="softEggButton" destination="kNr-Dp-1Dg" id="zUH-c5-8kS"/>
