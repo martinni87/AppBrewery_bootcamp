@@ -63,6 +63,8 @@ class ViewController: UIViewController {
              
         if boolFinalAnswer == (sender.tag == 1){
             points += 1
+            sender.backgroundColor = .systemGreen
+            Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(highlightButton), userInfo: nil, repeats: false)
             AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1115), nil)
             if maxTimerValue >= 15{
                 maxTimerValue -= 5
@@ -74,6 +76,8 @@ class ViewController: UIViewController {
         }
         else{
             mistakes += 1
+            sender.backgroundColor = .systemRed
+            Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(highlightButton), userInfo: nil, repeats: false)
             AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1116), nil)
             AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, nil)
         }
@@ -115,6 +119,11 @@ class ViewController: UIViewController {
     
     
     // - MARK: My functions
+    
+    @objc func highlightButton(){
+        trueButton.backgroundColor = myColor()
+        falseButton.backgroundColor = .systemPink
+    }
     
     func myColor() -> UIColor{
         if #available(iOS 15.0, *) {
