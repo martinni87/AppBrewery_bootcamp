@@ -107,12 +107,8 @@ struct QuizModel {
         
         // Reseting and updating variables for next question
         rounds += 1
-//        progressBar.progress = 0
-//        setBackground()
-//        nextQuestion()
         timer.invalidate()
         counter = maxTimerValue
-//        timerSet()
         
         return test
     }

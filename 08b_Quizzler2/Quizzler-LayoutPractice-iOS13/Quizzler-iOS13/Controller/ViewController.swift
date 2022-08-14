@@ -10,6 +10,7 @@
 import UIKit
 import QuartzCore
 import AudioToolbox
+import AVFoundation
 
 @available(iOS 15.0, *)
 class ViewController: UIViewController {
@@ -26,9 +27,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var feedBackLabel: UILabel!
     
     // - MARK: My Variables
-    var myQuiz: QuizModel = QuizModel()         // Loading quiz
-    var backgroundList: Array<UIImage> = []     // At viewDidLoad we load all background pictures to this Collection
-    var progressBarSettings: Progress = Progress()    // An object that defines functionality for the progress bar
+    var myQuiz: QuizModel = QuizModel()                 // Loading quiz
+    var backgroundList: Array<UIImage> = []             // At viewDidLoad we load all background pictures to this Collection
+    var progressBarSettings: Progress = Progress()      // An object that defines functionality for the progress bar
+    var soundPlayer: AVAudioPlayer!
+    var url = Bundle.main.url(forResource: "", withExtension: "")
     
     // - MARK: If view loads without errors
     override func viewDidLoad() {
@@ -65,17 +68,22 @@ class ViewController: UIViewController {
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(highlightButton), userInfo: nil, repeats: false)
         if myQuiz.testAnswer(sender) == true {
             feedBackLabel.isHidden = false
+            feedBackLabel.layer.opacity = 1
             feedBackLabel.text = "Correct!"
             feedBackLabel.textColor = .systemGreen
-            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(feedBackTimer), userInfo: nil, repeats: false)
-//            AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1115), nil)
+            url = Bundle.main.url(forResource: "correct", withExtension: "m4a")
+            soundPlayer = try! AVAudioPlayer(contentsOf: url!)
+            soundPlayer.play()
         }
         else{
 //            AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1116), nil)
             feedBackLabel.isHidden = false
+            feedBackLabel.layer.opacity = 1
             feedBackLabel.text = "Incorrect!"
             feedBackLabel.textColor = .systemRed
-            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(feedBackTimer), userInfo: nil, repeats: false)
+            url = Bundle.main.url(forResource: "wrong", withExtension: "m4a")
+            soundPlayer = try! AVAudioPlayer(contentsOf: url!)
+            soundPlayer.play()
             AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, nil)
         }
              
@@ -84,6 +92,9 @@ class ViewController: UIViewController {
         nextQuestion()
         myQuiz.setCounter(myQuiz.getMaxTimerValue())
         timerSet()
+        
+        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(feedBackTransition), userInfo: nil, repeats: false)
+        
         scoreLabel.isHidden = false
         scoreLabel.text = "Score: \(myQuiz.getPoints())"
     }
@@ -107,6 +118,18 @@ class ViewController: UIViewController {
     
     // - MARK: My functions
     
+    private func playSound (_ condition: Bool){
+        var url = Bundle.main.url(forResource: "", withExtension: "")
+        if condition == true{
+            url = Bundle.main.url(forResource: "correct", withExtension: "m4a")
+        }
+        else{
+            url = Bundle.main.url(forResource: "wrong", withExtension: "m4a")
+        }
+        soundPlayer = try! AVAudioPlayer(contentsOf: url!)
+        soundPlayer.play()
+    }
+    
     @objc func highlightButton(){
         trueButton.backgroundColor = .systemMint
         falseButton.backgroundColor = .systemPink
@@ -120,7 +143,19 @@ class ViewController: UIViewController {
         return temp
     }
     
-    func setBackground(){
+    @objc func feedBackTransition(){
+        UIView.transition(
+            with: feedBackLabel,
+            duration: 1,
+            options: .transitionCrossDissolve,
+            animations:
+            {
+                self.feedBackLabel.layer.opacity = 0
+            },
+            completion: nil)
+    }
+    
+    @objc func setBackground(){
         UIView.transition(
             with: backgroundPicture,
             duration: 0.75,
@@ -145,10 +180,6 @@ class ViewController: UIViewController {
     // Timer set and bar progress
     func timerSet(){
         myQuiz.setTimer(Timer.scheduledTimer(timeInterval: 1, target: self , selector: #selector(timerCounter), userInfo: nil, repeats: true))
-    }
-    
-    @objc func feedBackTimer(){
-        feedBackLabel.isHidden = true
     }
 
     @objc func timerCounter() -> Void {

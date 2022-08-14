@@ -3,7 +3,7 @@
 //  Quizzler-iOS13
 //
 //  Created by Martin Cordoba on 14/8/22.
-//  Copyright © 2022 The App Brewery. All rights reserved.
+//  For the App Brewery Bootcamp by Angela Yu.
 //
 
 import UIKit
