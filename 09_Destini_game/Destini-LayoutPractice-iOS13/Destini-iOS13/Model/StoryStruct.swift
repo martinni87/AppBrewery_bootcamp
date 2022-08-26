@@ -8,13 +8,12 @@
 
 import UIKit
 
-struct Story {
-    var storyLine: String
-    var choice1: String
-    var choice2: String
-    var nextStory: Int
+struct StoryStruct {
+    private var storyLine: String
+    private var choice1: Options
+    private var choice2: Options
     
-    init(storyLine: String, choice1: String, choice2: String) {
+    init(storyLine: String, choice1: Options, choice2: Options) {
         self.storyLine = storyLine
         self.choice1 = choice1
         self.choice2 = choice2
@@ -40,10 +39,10 @@ struct Story {
     func getStoryLine () -> String {
         return self.storyLine
     }
-    func getChoice1 () -> String {
+    func getChoice1 () -> Options {
         return self.choice1
     }
-    func getChoice2 () -> String {
+    func getChoice2 () -> Options {
         return self.choice2
     }
 }

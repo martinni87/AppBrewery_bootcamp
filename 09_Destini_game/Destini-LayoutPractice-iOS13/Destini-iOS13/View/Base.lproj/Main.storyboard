@@ -46,9 +46,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Nwj-uE-81n" userLabel="GameView">
                                 <rect key="frame" x="20" y="54" width="374" height="788"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IY3-J9-Kbg" userLabel="Story">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="IY3-J9-Kbg" userLabel="Story">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="400"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="600" id="nK0-AV-kZI"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="400" id="pwH-cT-sfA"/>
                                         </constraints>
                                         <attributedString key="attributedText">
@@ -56,7 +57,7 @@
                                                 <attributes>
                                                     <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <font key="NSFont" size="36" name="Palatino-Roman"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
@@ -71,7 +72,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jh-qV-lHW" userLabel="Button1">
                                                         <rect key="frame" x="0.0" y="0.0" width="274" height="50"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="QhY-th-Fap"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="QhY-th-Fap"/>
                                                         </constraints>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
@@ -84,7 +85,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZA-0f-T7q" userLabel="Button2">
                                                         <rect key="frame" x="0.0" y="70" width="274" height="50"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="t7p-Tn-fsJ"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="t7p-Tn-fsJ"/>
                                                         </constraints>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
