@@ -1,5 +1,5 @@
 //
-//  resultViewController.swift
+//  ResultViewController.swift
 //  BMI Calculator
 //
 //  Created by Martin Cordoba on 27/8/22.
@@ -9,19 +9,23 @@
 import UIKit
 
 class ResultViewController: UIViewController {
+
+    @IBOutlet weak var bmiLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet var viewSettings: UIView!
     
-    var bmiValue = "0.0"
+    var bmi: CalculatorBrain?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .red
-        
-        let label = UILabel()
-        label.text = bmiValue
-        label.textColor = .white
-        label.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        view.addSubview(label)
+        bmiLabel.text = bmi?.getBmiTextValue()
+        messageLabel.text = bmi?.getBmiMessage()
+        viewSettings.backgroundColor = bmi?.getBmiColor()
     }
     
+    @IBAction func recalculateButtonAction(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+        
+    }
+
 }
