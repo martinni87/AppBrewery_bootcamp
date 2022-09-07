@@ -15,22 +15,30 @@ class CalculatorVC: UIViewController {
     @IBOutlet weak var tenPctButton: UIButton!
     @IBOutlet weak var twentyPctButton: UIButton!
     @IBOutlet weak var splitNumberLabel: UILabel!
+    @IBOutlet var mainView: UIView!
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
     
     // - MARK: Variables
     var tipValue = 0.1
     var splitNumber = 2.0
     var inputValue = 0.0
+    var totalSplit = 0.0
     
     // - MARK: Constants
     let kDecimalSeparator = Locale.current.decimalSeparator!
+
     
     // - MARK: View did load
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         zeroPctButton.tag = 0
         tenPctButton.tag = 10
         twentyPctButton.tag = 20
+        billTextField.endEditing(false)
+        billTextField.keyboardType = .decimalPad
         
+        tapGesture.location(in: mainView)
     }
 
     @IBAction func tipChanged(_ sender: UIButton) {
@@ -79,13 +87,30 @@ class CalculatorVC: UIViewController {
         }
         inputValue = Double(tempValue) ?? 0.0
         
-        let result = (inputValue + inputValue * tipValue) / splitNumber
-        var resultText = String(format:"%.2f",result)
-        resultText.insert(",", at: resultText.firstIndex(of: ".")!)
-        resultText.remove(at: resultText.firstIndex(of: ".")!)
-        print(resultText)
+        totalSplit = (inputValue + inputValue * tipValue) / splitNumber
+        
+//        let result = (inputValue + inputValue * tipValue) / splitNumber
+        
+//        var resultText = String(format:"%.2f",result)
+//        resultText.insert(",", at: resultText.firstIndex(of: ".")!)
+//        resultText.remove(at: resultText.firstIndex(of: ".")!)
+//        print(resultText)
         
         performSegue(withIdentifier: "ShowResult", sender: sender)
     }
+    
+    @IBAction func tapGestureAction(_ sender: UITapGestureRecognizer) {
+        billTextField.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "ShowResult"{
+                let resultsVC = segue.destination as! ResultsVC
+                resultsVC.totalSplit = self.totalSplit
+                resultsVC.tipValue = self.tipValue
+                resultsVC.splitNumber = self.splitNumber
+            }
+        }
+    
 }
 

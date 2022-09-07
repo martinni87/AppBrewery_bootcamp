@@ -13,23 +13,19 @@ class ResultsVC: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var settingsLabel: UILabel!
 
+    // - MARK: Variables
+    var totalSplit = 0.0
+    var tipValue = 0.1
+    var splitNumber = 2.0
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        totalLabel.text = String(format: "%.2f", totalSplit)
+        settingsLabel.text = "Split between \(String(format: "%0.f",splitNumber)) people, with \(tipValue*100)% tip."
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func recalculatePressed(_ sender: UIButton) {
+        dismiss(animated: true)
     }
     
 }
