@@ -1,0 +1,7 @@
+Some work pending
+
+The app is working ok, but there's some job to be done.
+To have a MVC design we need to clean the Main view controller and
+create some models of the objects used.
+
+Erase this file when done.
